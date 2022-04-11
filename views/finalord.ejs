@@ -1,0 +1,55 @@
+<%- include("partials/header") %> 
+
+ 
+
+<div class="finalhead">
+<h1>Thank you for placing the order</h1>
+
+<h2>You will get your order by 6:15pm.CHEEEERRRRRS!!!!!</h2>
+
+</div>
+
+<table class="table">
+<thead>
+    <tr>
+      <th scope="col">S.no</th>
+      <th scope="col">Item</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">max cost</th>
+    </tr>
+  </thead>
+  <tbody>
+
+     
+      <% totalord.map(function(eachitem){ %>
+
+        <% let today = new Date() %>
+
+         <% if(eachitem.rollno===rolll){ %>
+
+        <% if(eachitem.dateoford === today.toDateString()) { %>
+                 <tr>
+        <th scope="row">-></th>
+      <td><%- eachitem.item %></td>
+      <td>  <%= eachitem.quantity %></td>
+      <td>  <%= eachitem.maxprice %></td>
+    </tr>
+       <% } %>
+       <% } %>
+    <%  }); %>
+
+  </tbody>
+</table>
+
+<totalprice class="totprice1">Total Price ::-></totalprice><b><value1 id="value1"><%= jagant %></value1></b>
+  <delivery class="totprice2">Delivery   ::-></delivery><b><value2 id="value2"><%= kcrd %></value2></b>
+   
+</br>
+  <total class="totprice3">Total ::-></total><b><value3 id="value3"><%= jk %></value3></b>
+
+  <div>
+
+
+
+
+<%- include("partials/footer") %>

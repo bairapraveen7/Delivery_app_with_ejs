@@ -1,0 +1,201 @@
+<%- include("partials/header") %>
+<script>
+
+
+      var nvar=[];
+
+  function takeq1(event){
+    let itema=decodeURI(event.target.getAttribute("parent"));
+      nvar[0]=itema;
+      nvar[1]=event.target.value;
+      console.log(nvar);
+  }
+
+  function takeq2(event){
+    let indexx=decodeURI(event.target.getAttribute("parent"));
+    if(event.target.getAttribute("name") === "itemname"){
+      nvar[0]=indexx;
+      nvar[1]=event.target.value;
+    }
+    else{
+      nvar[2]=event.target.value;
+    }
+      console.log(nvar);
+  }
+
+  
+  function takeq31(event){
+
+    let listofpr = document.getElementsByClassName("maxprice");
+        let sum=0;
+       for(var i=0;i<listofpr.length;i++){
+            sum+=Number(listofpr[i].value);
+       }
+     
+
+       nvar[2]=event.target.value;
+
+       nvar[3]=sum;
+
+       document.location.href="/changenemp/"+nvar;
+
+       nvar.length=0;
+       
+       
+
+  }
+
+  function takeq32(event){
+
+    let listofpr = document.getElementsByClassName("maxprice");
+        let sum=0;
+       for(var i=0;i<listofpr.length;i++){
+            sum+=Number(listofpr[i].value);
+       }
+        
+       nvar[3]=event.target.value;
+
+       nvar[4] = sum;
+
+       document.location.href="/changeemp/"+nvar;
+
+       nvar.length=0;
+       
+
+  }
+
+   </script> 
+
+ <% let initcount = 0 %>
+ <% let index = 0 %>
+<% let foodit = ['punugulu','samosa','parota','boiled egg curry','veg curries','chicken curry','butter naan','juices']; %>
+<% let stat = ['pencil','pen','book','scale','cut papers','zerox']; %>
+<% let groc = ['bathing soap','cloths washing soap','tooth paste','balms','eggs','shampoo','biscuits','cool drinks']; %>
+
+<h1 class="greet">HAI <%= greet %>!!!!</h1>
+
+<div class="row">
+    <div class="col col-lg-4 col-md-6 col-12"  >
+        <div class="dropdown show">
+            <img class="order" src="/images/samosa.jpg"> 
+            <a class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              FOOD ITEMS
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <% foodit.map(function(x){ %>
+                <% let valueu = encodeURI(x,"utf-8") %>
+                <% let url="/additem/" + valueu  %>
+                <a class="dropdown-item" href=<%= url %> ><%= x %></a>
+              <% }); %>
+            </div>
+          </div>
+    </div>
+    <div class="col col-lg-4 col-md-6 col-12" >
+        <div class="dropdown show">
+            <img class="order" src="/images/station.jpg">
+            <a class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              STATIONARY ITEMS
+            </a>
+          
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <% stat.map(function(x){ %>
+                <% let valueu = encodeURI(x,"utf-8") %>
+                <% let url="/additem/" + valueu  %>
+                <a class="dropdown-item" href=<%= url %> ><%= x %></a>
+              <% }); %>
+            </div>
+          </div>
+    </div>
+    <div class="col col-lg-4 col-md-6 col-12"  >
+        <div class="dropdown show">
+            <img class="order"   src="/images/grocery.png">
+             <a class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              GROCERY ITEMS
+            </a>
+          
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <% groc.map(function(x){ %>
+                <% let valueu = encodeURI(x,"utf-8") %>
+                <% let url="/additem/" + valueu  %>
+                <a class="dropdown-item" href=<%= url %> ><%= x %></a>
+              <% }); %>
+            </div>
+          </div>
+    </div>
+</div>
+
+<table class="table">
+  <div class="preinfo">
+    <h1 >Orders Table</h1>
+    <p> * Quantity -> How many items you want</p>
+  </br>
+    <p> * Price    -> Max how much you can spend</p>
+
+    <p class="inst">Please fill item first,then quantity,then maxprice in order</p>
+    <p class="inst">After filling,click place the order button</p>
+  </div>
+  <thead>
+    <tr>
+      <th scope="col">S.no</th>
+      <th scope="col">Item</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">max cost</th>
+      <th scope="col">Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% glist.map(function(item){ %>
+         <tr>
+        <th scope="row">-></th>
+      <td><%- item.item %></td>
+        
+      <%  nvar=item.item %>
+      <td><input type="text" pattern="[1-50]{1}" data=<%= nvar %> onchange="takeq1(event)" parent= <%= encodeURI(item.item,'utf-8') %> value=<%= item.quantity %>></td>
+      <td><input type="text" class="maxprice" pattern="[0-9]" data=<%= nvar %> value=<%= item.maxprice %> onchange="takeq31(event)"></td>
+      <% let valueu=encodeURI(item.item,'utf-8') %>
+      <% let urld="/delete/" + valueu  %>
+      <td><a href=<%= urld %> ><i class="fa-solid fa-trash"></i></a></td>
+    </tr>
+
+    <%  }); %>
+
+    
+      <% for(var i=0;i<emplist.length;i++){ %>
+      <tr>
+        <% index++ %>
+     <th scope="row"><%= index %>-></th>
+   <td><input type="text" onchange="takeq2(event)" pattern="[a-zA-Z]" placeholder="Enter an item"  name="itemname" parent=<%= index %> value=<%= emplist[i].item %>> </td>
+   <td><input type="text" pattern="[1-50]{1}"  min="0" onchange="takeq2(event)" name="quantity" placeholder="No of items"  parent=<%= index %> value=<%= emplist[i].quantity %>></td>
+   <td><input type="text"   class="maxprice" pattern="[0-9]" onchange="takeq32(event)" placeholder="No of items"  parent=<%= index %> value=<%= emplist[i].maxprice %>></td>
+   <% let urld="/deleteempty/" +  index  %>
+      <td><a href=<%= urld %> ><i class="fa-solid fa-trash"></i></a></td>
+ </tr>
+
+ <%  } %>
+
+     
+
+      
+     
+      
+  </tbody>
+</table>
+  <form action="/addempty" method="post">
+<button onclick="this.form.submit()" class="plus" ><i class="fa-solid fa-plus" style="font-family: 'Pacifico';font-size:1.5em">Add item</i></button>
+  </form>
+
+  <totalprice class="totprice1">Total Price ::-></totalprice><b><value1 id="value1"><%= jagant %></value1></b>
+  <delivery class="totprice2">Delivery   ::-></delivery><b><value2 id="value2"><%= kcrd %></value2></b>
+   
+</br>
+  <total class="totprice3">Total ::-></total><b><value3 id="value3"><%= jk %></value3></b>
+
+  <div>
+    <form action="/gettodatabase" method="post">
+  <button class="placeord" onclick="this.form.submit">Place Order</button>
+  </form>
+  </div>
+
+  
+
+<%- include("partials/footer") %>

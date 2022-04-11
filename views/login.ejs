@@ -1,0 +1,12 @@
+<%- include('partials/header') %> 
+<div class="form2">
+    <h2>Login, My friend to order</h2>
+    <p style="color:red"><%= message %></p>
+    <form action="/login" method="post">
+       <input type="text" class="form-control" name="rollno" pattern="[0-9]{12}" placeholder="ROLL NO"></br>
+       <input type="text" class="form-control" name="phoneno" pattern="[0-9]{10}" placeholder="PHONE NO"></br>
+       <input type="submit" class="btn btn-success" value="recognise me">
+    </form>
+    </div>
+<%- include('partials/footer') %>
+ 

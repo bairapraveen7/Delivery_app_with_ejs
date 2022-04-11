@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+<h1 class="head">Its 'gets ganga'</h1>
+
+<div class="row">
+      <div class="col-lg-4 col-sm-12">
+    <img class="deliv" src="images/delivery.jpg" width="200px" height="200px">
+    </div>
+      
+    <div class="form col-lg-4 col-sm-12">
+    <p style="color:red"><%= message %></p>
+    <h2 class="head2">Register Yourself!!!</h2>
+    <form action="/register" method="post">
+       <input type="text" class="form-control" pattern="[0-9]{12}" placeholder="ROLL NO" name="rollno"></br>
+     <input type="text" class="form-control" pattern="[0-9]{3}" placeholder="ROOM NO" name="roomno"></br>
+        <input type="text" class="form-control" pattern="[0-9]{10}" placeholder="PHONE NO" name="phoneno"></br>
+       <input type="submit" class="btn btn-primary" value="remember me"></br>
+       <a href="login" ><button type="button" class="btn log btn-dark">Sign up</button></a><span class="check">-if registered-</span>
+    </form>
+    </div>
+    
+</div>
+
+    <%- include('partials/footer') %>
+ 
